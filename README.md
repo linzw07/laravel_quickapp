@@ -1,4 +1,4 @@
-Trackosaur
-==========
+Laravel 4 Quickapp
+==================
 
-Personal tracking system.
+A quick start Laravel 4 app with readymade Register, Login & Logout styled with Bootstrap.
