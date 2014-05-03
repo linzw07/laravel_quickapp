@@ -1,5 +1,4 @@
-Laravel 4 Quickapp
-==================
+
 
 A quick start Laravel 4 app with readymade Register, Login & Logout styled with Bootstrap.
 
@@ -31,3 +30,9 @@ License
 ----
 
 MIT
+
+laravel_quickapp
+
+
+it for search for market
+
