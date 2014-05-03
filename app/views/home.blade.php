@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -5,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
  
     <title>My App</title>
-    {{ HTML::style('stylesheets/bootstrap.min.css')}}
-    {{ HTML::style('stylesheets/main.css')}}
+   @include('layouts.head')
   </head>
  
-  <body>
+  <body style="background: #17CFB6">
+
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -23,9 +24,8 @@
         </div>
         <div class="collapse navbar-collapse pull-right">
           <ul class="nav navbar-nav">
-            <li>{{ HTML::link('#section1', 'Section 1') }}</li>   
-            <li>{{ HTML::link('#section2', 'Section 2') }}</li>
-            <li>{{ HTML::link('logout', 'Logout') }}</li> 
+        
+    
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -35,7 +35,6 @@
             <p class="alert">{{ Session::get('message') }}</p>
         @endif
 
-        {{ $content }}
     </div>
   </body>
 </html>
