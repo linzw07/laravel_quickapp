@@ -30,8 +30,10 @@ class UsersController extends BaseController {
             $user->lastname = Input::get('lastname');
             $user->email = Input::get('email');
             $user->password = Hash::make(Input::get('password'));
-            $user->save();
-
+          //  $user->save();
+            Mail::send('users.email.signup', array('firstname'=>Input::get('firstname')), function($message){
+            $message->to(Input::get('email'), Input::get('firstname').' '.Input::get('lastname'))->subject('Welcome to jobsearch website!');
+    });
             return Redirect::to('login')->with('message', 'Thanks for registering!');
         } else {
             // validation has failed, display error messages

@@ -10,9 +10,27 @@
 {{ HTML::style('stylesheets/css/bootstrap.min.css')}}
 {{ HTML::style('stylesheets/css/menu.css')}}
 {{ HTML::style('stylesheets/css/slide.css')}}
+<!--it is to get icon-->
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 
 
 {{ HTML::script('stylesheets/js/bootstrap.min.js') }}
 {{ HTML::script('stylesheets/js/jquery.1.10.js') }}
 {{ HTML::script('stylesheets/js/jquery_ui.js')}}
 {{ HTML::script('stylesheets/js/slide.js') }}
+
+
+
+
+
+<!--for auto serach-->
+{{ HTML::script('stylesheets/js/visualsearch.js') }}
+
+<!--[if (!IE)|(gte IE 8)]><!-->
+{{ HTML::style('stylesheets/css/visualsearch-datauri.css')}}
+
+<!--<![endif]-->
+<!--[if lte IE 7]><!-->
+{{ HTML::style('stylesheets/css/visualsearch.css')}}
+
+<!--<![endif]-->

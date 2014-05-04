@@ -3,14 +3,14 @@
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
-class User extends Eloquent implements UserInterface, RemindableInterface {
+class Profile extends Eloquent implements UserInterface, RemindableInterface {
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'users';
+	protected $table = 'profiles';
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -38,7 +38,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	{
 		return $this->password;
 	}
-
+        public function user()
+        {
+        return $this->belongsTo('User');
+        }
 	/**
 	 * Get the e-mail address where password reminders are sent.
 	 *
@@ -48,17 +51,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	{
 		return $this->email;
 	}
-        public function profile()
-        {
-             return $this->hasOne('Profile');
+         public static  $rules = array(
+            'upload_photo' => 'image|max:100000',
+        );
 
-        }
-	public static $rules = array(
-	    'firstname'=>'required|alpha|min:2',
-	    'lastname'=>'required|alpha|min:2',
-	    'email'=>'required|email|unique:users',
-	    'password'=>'required|alpha_num|between:6,12|confirmed',
-	    'password_confirmation'=>'required|alpha_num|between:6,12'
-    );
 
 }

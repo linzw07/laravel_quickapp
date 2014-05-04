@@ -13,7 +13,9 @@
 
           <li class="list-group-item">
               @if($all==true)
-                   <img src="../{{$product_object->pic_url}}" style="width:100%;height:200px;">
+                  <a href="{{URL::route('product_detail',array('product_id' =>$product_object->id))}}">
+                     <img src="../{{$product_object->pic_url}}" style="width:100%;height:200px;">
+                 </a>
               @else
                     <img src="../../{{$product_object->pic_url}}" style="width:100%;height:200px;">
             @endif
@@ -37,6 +39,9 @@
      </div>
      @endforeach
 
-     <?php echo $product_objects->links(); ?>
+
     <div style="clear:both"></div>
  </div>
+<div class="row" style="">
+         <?php echo $product_objects->links(); ?>
+</div>

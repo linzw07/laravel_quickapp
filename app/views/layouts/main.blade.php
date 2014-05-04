@@ -66,7 +66,7 @@
  <li><!-- End 1 columns Item -->
                
 
-                <li> {{ HTML::link('#', 'Private') }}<!-- Begin 4 columns Item -->
+                <li> {{ HTML::link('/dashboard/profile', 'Private') }}<!-- Begin 4 columns Item -->
                 </li><!-- End 4 columns Item -->
                 <li> 
                     {{ HTML::link('aboutus', 'About Us') }}<!-- Begin 4 columns Item -->
@@ -74,6 +74,8 @@
                 <li> 
                     {{ HTML::link('contactus', 'Contact Us') }}<!-- Begin 2 columns Item -->
 
+                </li>
+                <li>{{ HTML::link('request', 'Ask Question') }} <!-- Begin 1 columns Item -->
                 </li>
                 @if($myApp->isLogedin)
                 <li class="menu_right">{{ HTML::link('logout', 'Logout') }}
@@ -94,6 +96,145 @@
 
             </div>
         </ul>
+       <div id="search_box_container"></div>
+    <div id="search_query">&nbsp;</div>
+
+    <script type="text/javascript" charset="utf-8">
+      $(document).ready(function() {
+        window.visualSearch = VS.init({
+          container  : $('#search_box_container'),
+          query      : 'country: "United States" account: 5-samuel "U.S. State": California',
+          showFacets : true,
+          readOnly   : false,
+          unquotable : [
+            'text',
+            'account',
+            'filter',
+            'access'
+          ],
+          callbacks  : {
+            search : function(query, searchCollection) {
+              var $query = $('#search_query');
+              $query.stop().animate({opacity : 1}, {duration: 300, queue: false});
+              $query.html('<span class="raquo">&raquo;</span> You searched for: <b>' + searchCollection.serialize() + '</b>');
+              clearTimeout(window.queryHideDelay);
+              window.queryHideDelay = setTimeout(function() {
+                $query.animate({
+                  opacity : 0
+                }, {
+                  duration: 1000,
+                  queue: false
+                });
+              }, 2000);
+            },
+            valueMatches : function(category, searchTerm, callback) {
+              switch (category) {
+              case 'account':
+                  callback([
+                    { value: '1-amanda', label: 'Amanda' },
+                    { value: '2-aron',   label: 'Aron' },
+                    { value: '3-eric',   label: 'Eric' },
+                    { value: '4-jeremy', label: 'Jeremy' },
+                    { value: '5-samuel', label: 'Samuel' },
+                    { value: '6-scott',  label: 'Scott' }
+                  ]);
+                  break;
+                case 'filter':
+                  callback(['published', 'unpublished', 'draft']);
+                  break;
+                case 'access':
+                  callback(['public', 'private', 'protected']);
+                  break;
+                case 'title':
+                  callback([
+                    'Pentagon Papers',
+                    'CoffeeScript Manual',
+                    'Laboratory for Object Oriented Thinking',
+                    'A Repository Grows in Brooklyn'
+                  ]);
+                  break;
+                case 'city':
+                  callback([
+                    'Cleveland',
+                    'New York City',
+                    'Brooklyn',
+                    'Manhattan',
+                    'Queens',
+                    'The Bronx',
+                    'Staten Island',
+                    'San Francisco',
+                    'Los Angeles',
+                    'Seattle',
+                    'London',
+                    'Portland',
+                    'Chicago',
+                    'Boston'
+                  ])
+                  break;
+                case 'U.S. State':
+                  callback([
+                    "Alabama", "Alaska", "Arizona", "Arkansas", "California",
+                    "Colorado", "Connecticut", "Delaware", "District of Columbia", "Florida",
+                    "Georgia", "Guam", "Hawaii", "Idaho", "Illinois",
+                    "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana",
+                    "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota",
+                    "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada",
+                    "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina",
+                    "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania",
+                    "Puerto Rico", "Rhode Island", "South Carolina", "South Dakota", "Tennessee",
+                    "Texas", "Utah", "Vermont", "Virginia", "Virgin Islands",
+                    "Washington", "West Virginia", "Wisconsin", "Wyoming"
+                  ]);
+                  break
+                case 'country':
+                  callback([
+                    "China", "India", "United States", "Indonesia", "Brazil",
+                    "Pakistan", "Bangladesh", "Nigeria", "Russia", "Japan",
+                    "Mexico", "Philippines", "Vietnam", "Ethiopia", "Egypt",
+                    "Germany", "Turkey", "Iran", "Thailand", "D. R. of Congo",
+                    "France", "United Kingdom", "Italy", "Myanmar", "South Africa",
+                    "South Korea", "Colombia", "Ukraine", "Spain", "Tanzania",
+                    "Sudan", "Kenya", "Argentina", "Poland", "Algeria",
+                    "Canada", "Uganda", "Morocco", "Iraq", "Nepal",
+                    "Peru", "Afghanistan", "Venezuela", "Malaysia", "Uzbekistan",
+                    "Saudi Arabia", "Ghana", "Yemen", "North Korea", "Mozambique",
+                    "Taiwan", "Syria", "Ivory Coast", "Australia", "Romania",
+                    "Sri Lanka", "Madagascar", "Cameroon", "Angola", "Chile",
+                    "Netherlands", "Burkina Faso", "Niger", "Kazakhstan", "Malawi",
+                    "Cambodia", "Guatemala", "Ecuador", "Mali", "Zambia",
+                    "Senegal", "Zimbabwe", "Chad", "Cuba", "Greece",
+                    "Portugal", "Belgium", "Czech Republic", "Tunisia", "Guinea",
+                    "Rwanda", "Dominican Republic", "Haiti", "Bolivia", "Hungary",
+                    "Belarus", "Somalia", "Sweden", "Benin", "Azerbaijan",
+                    "Burundi", "Austria", "Honduras", "Switzerland", "Bulgaria",
+                    "Serbia", "Israel", "Tajikistan", "Hong Kong", "Papua New Guinea",
+                    "Togo", "Libya", "Jordan", "Paraguay", "Laos",
+                    "El Salvador", "Sierra Leone", "Nicaragua", "Kyrgyzstan", "Denmark",
+                    "Slovakia", "Finland", "Eritrea", "Turkmenistan"
+                  ], {
+                    preserveOrder: true // Otherwise the selected value is brought to the top
+                  });
+                  break;
+              }
+            },
+            facetMatches : function(callback) {
+              callback([
+                'account', 
+                'filter', 
+                'access', 
+                'title',
+                { label: 'city',        category: 'location' },
+                { label: 'address',     category: 'location' },
+                { label: 'country',     category: 'location' },
+                { label: 'U.S. State',  category: 'location' },
+              ]);
+            }
+          }
+        });
+      });
+    </script>
+
+        
         @if(!$myApp->isLogedin)
        <ul class="rslides" id="slider1" style="height:350px">
           <li><img src="img/1.jpg" alt=""></li>
@@ -107,6 +248,7 @@
         <div class="container">  
             @if(Session::has('message'))
             <p class="alert" style="font-size:16px;color:red">{{ Session::get('message') }}</p>
+            <?php Session::forget('message');?>
             @endif
 
             <div>
